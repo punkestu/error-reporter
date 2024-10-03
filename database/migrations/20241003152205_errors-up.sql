@@ -1,0 +1,8 @@
+CREATE TABLE IF NOT EXISTS errors (
+    id SERIAL PRIMARY KEY,
+    head VARCHAR(255) NOT NULL,
+    description TEXT NOT NULL,
+    reported_by BIGINT UNSIGNED NOT NULL,
+    reported_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    FOREIGN KEY (reported_by) REFERENCES users(id) ON DELETE CASCADE
+);

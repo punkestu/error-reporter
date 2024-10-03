@@ -1,0 +1,1 @@
+ALTER TABLE errors DROP COLUMN status;

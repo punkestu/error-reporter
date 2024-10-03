@@ -1,0 +1,1 @@
+ALTER TABLE errors ADD COLUMN status ENUM('pending', 'resolved') DEFAULT 'pending' NOT NULL;

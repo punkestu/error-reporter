@@ -1,0 +1,39 @@
+<?php
+
+if ($argc == 1) {
+    echo "Usage: php runner <command>\n";
+    exit(1);
+}
+
+if ($argv[1] == 'migrate') {
+    if ($argc == 2) {
+        echo "Usage: php runner migrate <up/down/create>\n";
+        exit(1);
+    }
+
+    if ($argv[2] == 'create') {
+        if ($argc == 3) {
+            echo "Usage: php runner migrate create <table_name>\n";
+            exit(1);
+        }
+        require_once __DIR__ . '/database/migrate.php';
+        migrateCreate($argv[3]);
+        exit(0);
+    }
+
+    if ($argv[2] == 'up') {
+        require_once __DIR__ . '/database/migrate.php';
+        migrateUp();
+        exit(0);
+    }
+
+    if ($argv[2] == 'down') {
+        require_once __DIR__ . '/database/migrate.php';
+        migrateDown();
+        exit(0);
+    }
+
+    echo "Failed: Unknown migrate command\n";
+}
+
+echo "Failed: Unknown command\n";
