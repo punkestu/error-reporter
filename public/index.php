@@ -8,14 +8,14 @@ methodMap("GET", function () {
     $props["cursor"] = ($_GET["cursor"] ?? 1) - 1;
     $props["limit"] = 3;
     $db = db_connect();
+    $res = $db->query('SELECT COUNT(*) FROM errors');
+    $props["total"] = $res->fetch_row()[0];
     $res = $db->query('SELECT e.*, u.email FROM errors e JOIN users u ON e.reported_by = u.id ORDER BY e.reported_at DESC LIMIT ' . $props["limit"] . ' OFFSET ' . $props["cursor"] * $props["limit"]);
     $props["error-list"] = $res->fetch_all(MYSQLI_ASSOC);
-    if (count($props["error-list"]) === 0) {
+    if (count($props["error-list"]) === 0 && $props["total"] > 0) {
         header('Location: /');
         return;
     }
-    $res = $db->query('SELECT COUNT(*) FROM errors');
-    $props["total"] = $res->fetch_row()[0];
     include __DIR__ . '/../views/index.php';
 });
 methodMap("POST", function () {
