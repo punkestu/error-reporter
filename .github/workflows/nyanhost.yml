@@ -1,0 +1,21 @@
+name: CD
+run-name: Deploy to nyanhosting 🚀
+on:
+  push:
+    branches: [main]
+
+jobs:
+  Deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - name: ssh commands
+        uses: appleboy/ssh-action@v1.0.3
+        with:
+          host: ${{ secrets.HOST }}
+          username: ${{ secrets.USERNAME }}
+          key: ${{ secrets.SECRET_KEY }}
+          port: 22
+          script: |
+            cd repositories/error-reporter
+            git pull origin main
+            npm run build
