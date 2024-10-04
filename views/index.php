@@ -42,12 +42,16 @@
                 <?php } ?>
             </div>
         <?php } ?>
-        <?php if ($props["cursor"] > 0) { ?>
-            <a href="/?cursor=<?= $props["cursor"] ?>">Prev</a>
-        <?php } ?>
-        <?= $props["cursor"] + 1 ?> / <?= ceil($props["total"] / $props["limit"]) ?>
-        <?php if ($props["cursor"] * $props["limit"] + $props["limit"] <= $props["total"]) { ?>
-            <a href="/?cursor=<?= $props["cursor"] + 2 ?>">Next</a>
+        <?php if ($props["total"] == 0) { ?>
+            <p>No errors found</p>
+        <?php } else { ?>
+            <?php if ($props["cursor"] > 0) { ?>
+                <a href="/?cursor=<?= $props["cursor"] ?>">Prev</a>
+            <?php } ?>
+            <?= $props["cursor"] + 1 ?> / <?= ceil($props["total"] / $props["limit"]) ?>
+            <?php if ($props["cursor"] * $props["limit"] + $props["limit"] <= $props["total"]) { ?>
+                <a href="/?cursor=<?= $props["cursor"] + 2 ?>">Next</a>
+            <?php } ?>
         <?php } ?>
     </div>
 </body>
